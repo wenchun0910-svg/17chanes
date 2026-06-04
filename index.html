@@ -67,7 +67,8 @@
         #view-submit {
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
+            height: 100vh; /* 關鍵修正：固定高度，強制觸發內部捲動 */
+            height: 100dvh; /* 關鍵修正：支援手機端瀏覽器的動態高度 */
             /* 傳統宣紙與細緻紋理背景 */
             background-color: var(--theme-bg);
             background-image: 
@@ -78,8 +79,8 @@
             overflow-y: auto;
             overflow-x: hidden; /* 防止產生水平卷軸 */
             align-items: center;
-            padding: clamp(20px, 5vh, 40px) 15px; /* 響應式外部留白 */
-            box-sizing: border-box; /* 確保滿版高度不被撐破 */
+            padding: clamp(20px, 5vh, 40px) 15px 80px 15px; /* 增加底部留白，避免按鈕貼底難按 */
+            box-sizing: border-box; /* 確保 padding 不會撐破 100vh 高度 */
         }
 
         .form-card {
@@ -385,7 +386,8 @@
                 <text x="110" y="65" fill="#2E8B57" font-size="16" font-weight="bold" font-family="sans-serif">國小</text>
             </svg>
             <img id="customLogo1" class="custom-logo-img" style="display:none;" alt="School Logo">
-               </div>
+            <h1 id="mainTitle1">臺中市長安國小第十七屆<br>畢業祝福</h1>
+        </div>
 
         <div class="form-card">
             <h2>🎓 寫下您的祝福 🎓</h2>
@@ -584,7 +586,7 @@
         handleRouting();
 
         // ================= 1. 系統與 Firebase 初始化 =================
-                 const myFirebaseConfig = {
+               const myFirebaseConfig = {
                 apiKey: "AIzaSyCnHAgkXvben7eh2OMGtq13biiZa24EC7s",
   authDomain: "gradeuate-deadc.firebaseapp.com",
   projectId: "gradeuate-deadc",
@@ -593,6 +595,7 @@
   appId: "1:30747945421:web:955c16cec04af65e473c84"
         };
 
+        
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'changan-school-app';
         const MSG_PATH = `artifacts/${appId}/public/data/blessings`;
         const CONFIG_COLLECTION = `artifacts/${appId}/public/data/config`;
