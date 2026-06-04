@@ -76,8 +76,10 @@
             background-size: 30px 30px;
             color: var(--text-main);
             overflow-y: auto;
+            overflow-x: hidden; /* 防止產生水平卷軸 */
             align-items: center;
-            padding: 30px 15px;
+            padding: clamp(20px, 5vh, 40px) 15px; /* 響應式外部留白 */
+            box-sizing: border-box; /* 確保滿版高度不被撐破 */
         }
 
         .form-card {
@@ -85,16 +87,19 @@
             /* 中式牌匾風格雙線邊框 */
             border: 4px double var(--theme-primary);
             border-radius: var(--border-radius);
-            padding: 30px;
+            padding: clamp(20px, 5vw, 30px); /* 響應式內部留白 */
             width: 100%;
             max-width: 450px;
+            box-sizing: border-box; /* 關鍵：防止 padding 撐破 100% 寬度 */
             box-shadow: 6px 6px 0px rgba(30, 58, 138, 0.08);
+            margin: 0 auto;
         }
 
         .form-card h2 {
             text-align: center; color: var(--theme-primary); margin-top: 0;
             border-bottom: 2px solid var(--theme-gold); padding-bottom: 15px; margin-bottom: 25px;
             letter-spacing: 3px;
+            font-size: clamp(1.3rem, 5vw, 1.8rem); /* 響應式標題大小 */
         }
 
         .form-group { margin-bottom: 20px; }
@@ -114,10 +119,11 @@
             border: 2px solid var(--theme-primary);
             padding: 15px; border-radius: var(--border-radius); font-size: 1.2rem; font-weight: bold;
             cursor: pointer; transition: 0.2s; letter-spacing: 3px;
+            box-sizing: border-box; /* 確保按鈕寬度不會超出 */
         }
         .submit-btn:hover { background: white; color: var(--theme-primary); }
         .submit-btn:disabled { background: #999; border-color: #999; color: white; cursor: not-allowed; }
-        .back-to-wall { display: block; text-align: center; margin-top: 20px; color: #666; text-decoration: none; font-size: 0.9rem; }
+        .back-to-wall { display: block; text-align: center; margin-top: 20px; margin-bottom: 20px; color: #666; text-decoration: none; font-size: 0.9rem; }
 
         /* ================= 視圖 2：畢業祝福牆 (#wall) ================= */
         #view-wall {
@@ -387,11 +393,11 @@
             <form id="wishForm">
                 <div class="form-group">
                     <label>您的姓名 / 稱謂</label>
-                    <input type="text" id="guestName" required placeholder="例如：李大仁 / 605家長">
+                    <input type="text" id="guestName" required placeholder="例如：王小明 / 家長會長">
                 </div>
                 <div class="form-group">
                     <label>送給哪位畢業生 (或班級)</label>
-                    <input type="text" id="targetName" required placeholder="例如：六年五班 / 李小安">
+                    <input type="text" id="targetName" required placeholder="例如：六年甲班 / 李大華">
                 </div>
                 <div class="form-group">
                     <label>祝福內容</label>
@@ -480,7 +486,7 @@
             
             <!-- 登入區塊 -->
             <div id="loginSection">
-                <p>請輸入管理員密碼以進入設定</p>
+                <p>請輸入管理員密碼以進入設定 (預設: 1234)</p>
                 <div class="flex-row">
                     <input type="password" id="adminPassword" class="admin-input" placeholder="請輸入密碼">
                     <button class="btn-action" onclick="verifyLogin()">登入</button>
@@ -579,7 +585,7 @@
         handleRouting();
 
         // ================= 1. 系統與 Firebase 初始化 =================
-               const myFirebaseConfig = {
+                 const myFirebaseConfig = {
                 apiKey: "AIzaSyCnHAgkXvben7eh2OMGtq13biiZa24EC7s",
   authDomain: "gradeuate-deadc.firebaseapp.com",
   projectId: "gradeuate-deadc",
@@ -588,7 +594,6 @@
   appId: "1:30747945421:web:955c16cec04af65e473c84"
         };
 
-        
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'changan-school-app';
         const MSG_PATH = `artifacts/${appId}/public/data/blessings`;
         const CONFIG_COLLECTION = `artifacts/${appId}/public/data/config`;
