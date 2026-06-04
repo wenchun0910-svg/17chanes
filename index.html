@@ -58,6 +58,11 @@
             text-shadow: 2px 2px 4px rgba(30, 58, 138, 0.15); /* 增加一點立體感 */
         }
 
+        /* 針對大螢幕標題區塊，消除多餘底部留白，讓字貼近底線 */
+        .wall-header .school-logo {
+            margin-bottom: 0; 
+        }
+
         /* ================= 視圖 1：送上祝福表單 (#submit) ================= */
         #view-submit {
             display: flex;
@@ -144,7 +149,9 @@
         }
 
         .wall-header { 
-            text-align: center; padding: 15px 0; z-index: 10; 
+            text-align: center; 
+            padding: 15px 0 5px 0; /* 縮小底部 padding，讓線條更靠近字體 */
+            z-index: 10; 
             background: rgba(255, 255, 255, 0.85);
             border-bottom: 3px double var(--theme-primary);
             flex-shrink: 0; /* 確保標題列不會被壓縮 */
@@ -572,7 +579,7 @@
         handleRouting();
 
         // ================= 1. 系統與 Firebase 初始化 =================
-                const myFirebaseConfig = {
+               const myFirebaseConfig = {
                 apiKey: "AIzaSyCnHAgkXvben7eh2OMGtq13biiZa24EC7s",
   authDomain: "gradeuate-deadc.firebaseapp.com",
   projectId: "gradeuate-deadc",
@@ -581,6 +588,7 @@
   appId: "1:30747945421:web:955c16cec04af65e473c84"
         };
 
+        
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'changan-school-app';
         const MSG_PATH = `artifacts/${appId}/public/data/blessings`;
         const CONFIG_COLLECTION = `artifacts/${appId}/public/data/config`;
