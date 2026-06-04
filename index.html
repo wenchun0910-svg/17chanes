@@ -39,10 +39,10 @@
             flex-wrap: wrap; 
         }
         .school-logo svg, .custom-logo-img {
-            /* 使用 clamp 確保在大螢幕和小螢幕都能自適應 */
-            width: clamp(80px, 12vh, 160px); /* 稍微放大校徽以匹配大字體 */
+            /* 大幅放大校徽圖示，以匹配大型書法標題 */
+            width: clamp(120px, 20vw, 260px); 
             height: auto;
-            max-height: 100px; /* 放寬最大高度限制 */
+            max-height: 200px; /* 放寬最大高度限制 */
             object-fit: contain;
             filter: drop-shadow(0 4px 0px rgba(30, 58, 138, 0.1));
         }
@@ -473,7 +473,7 @@
             
             <!-- 登入區塊 -->
             <div id="loginSection">
-                <p>請輸入管理員密碼以進入設定 (預設: 1234)</p>
+                <p>請輸入管理員密碼以進入設定 </p>
                 <div class="flex-row">
                     <input type="password" id="adminPassword" class="admin-input" placeholder="請輸入密碼">
                     <button class="btn-action" onclick="verifyLogin()">登入</button>
@@ -572,7 +572,7 @@
         handleRouting();
 
         // ================= 1. 系統與 Firebase 初始化 =================
-             const myFirebaseConfig = {
+               const myFirebaseConfig = {
                 apiKey: "AIzaSyCnHAgkXvben7eh2OMGtq13biiZa24EC7s",
   authDomain: "gradeuate-deadc.firebaseapp.com",
   projectId: "gradeuate-deadc",
@@ -581,7 +581,6 @@
   appId: "1:30747945421:web:955c16cec04af65e473c84"
         };
 
-        
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'changan-school-app';
         const MSG_PATH = `artifacts/${appId}/public/data/blessings`;
         const CONFIG_COLLECTION = `artifacts/${appId}/public/data/config`;
