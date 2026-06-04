@@ -34,13 +34,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0px;
-            margin-bottom: 0px;
+            gap: 15px;
+            margin-bottom: 20px;
             flex-wrap: wrap; 
         }
         .school-logo svg, .custom-logo-img {
             /* 使用 clamp 確保在大螢幕和小螢幕都能自適應 */
-            width: clamp(160px, 20vh, 160px); /* 稍微放大校徽以匹配大字體 */
+            width: clamp(80px, 12vh, 160px); /* 稍微放大校徽以匹配大字體 */
             height: auto;
             max-height: 100px; /* 放寬最大高度限制 */
             object-fit: contain;
@@ -48,11 +48,14 @@
         }
         .school-logo h1 {
             margin: 0;
-            font-size: clamp(2.8rem, 6vh, 3.5rem); /* 大幅放大標題字體 */
+            /* 專注於飄逸連筆的「行書 / 行楷」字體堆疊 */
+            font-family: 'Xingkai TC', 'STXingkai', 'DFXingkai-W5', 'DFXingshu-W5', 'FZXingKai-Z04S', 'Kaiti TC', 'BiauKai', cursive, serif;
+            font-size: clamp(1.8rem, 6vh, 3.5rem); /* 大幅放大標題字體 */
             color: var(--theme-primary);
-            letter-spacing: 2px;
+            letter-spacing: 4px;
             text-align: center;
-            font-weight: bold;
+            font-weight: normal; /* 行書自帶粗細變化，取消強制粗體會更自然飄逸 */
+            text-shadow: 2px 2px 4px rgba(30, 58, 138, 0.15); /* 增加一點立體感 */
         }
 
         /* ================= 視圖 1：送上祝福表單 (#submit) ================= */
@@ -217,7 +220,16 @@
         
         /* 將祝福文字與相關標籤大幅放大 */
         .carousel-card .target { color: var(--theme-primary); font-size: clamp(1.5rem, 3.5vh, 2.2rem); font-weight: bold; margin-bottom: 2vh; border-bottom: 1px solid #ccc; padding-bottom: 1vh; letter-spacing: 1px;}
-        .carousel-card .msg { font-size: clamp(2.5rem, 6vh, 4.5rem); line-height: 1.4; font-weight: bold; word-wrap: break-word; color: var(--theme-dark); overflow-y: auto;}
+        .carousel-card .msg { 
+            /* 內文也套用連筆飄逸的行書字體 */
+            font-family: 'Xingkai TC', 'STXingkai', 'DFXingkai-W5', 'DFXingshu-W5', 'FZXingKai-Z04S', 'Kaiti TC', 'BiauKai', cursive, serif;
+            font-size: clamp(2.5rem, 6vh, 4.5rem); 
+            line-height: 1.4; 
+            font-weight: normal; /* 讓書法字體呈現自然筆觸 */
+            word-wrap: break-word; 
+            color: var(--theme-dark); 
+            overflow-y: auto;
+        }
         
         /* 寄件人：中式白文印章風格 */
         .carousel-card .sender { 
@@ -461,7 +473,7 @@
             
             <!-- 登入區塊 -->
             <div id="loginSection">
-                <p>請輸入管理員密碼以進入設定 </p>
+                <p>請輸入管理員密碼以進入設定 (預設: 1234)</p>
                 <div class="flex-row">
                     <input type="password" id="adminPassword" class="admin-input" placeholder="請輸入密碼">
                     <button class="btn-action" onclick="verifyLogin()">登入</button>
@@ -560,7 +572,7 @@
         handleRouting();
 
         // ================= 1. 系統與 Firebase 初始化 =================
-          const myFirebaseConfig = {
+             const myFirebaseConfig = {
                 apiKey: "AIzaSyCnHAgkXvben7eh2OMGtq13biiZa24EC7s",
   authDomain: "gradeuate-deadc.firebaseapp.com",
   projectId: "gradeuate-deadc",
