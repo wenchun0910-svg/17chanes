@@ -394,7 +394,7 @@
             <form id="wishForm">
                 <div class="form-group">
                     <label>您的姓名 / 稱謂</label>
-                    <input type="text" id="guestName" required placeholder="例如：李大仁 / 605家長">
+                    <input type="text" id="guestName" required placeholder="例如：李大仁 / 家長">
                 </div>
                 <div class="form-group">
                     <label>送給哪位畢業生 (或班級)</label>
@@ -586,7 +586,7 @@
         handleRouting();
 
         // ================= 1. 系統與 Firebase 初始化 =================
-               const myFirebaseConfig = {
+                   const myFirebaseConfig = {
                 apiKey: "AIzaSyCnHAgkXvben7eh2OMGtq13biiZa24EC7s",
   authDomain: "gradeuate-deadc.firebaseapp.com",
   projectId: "gradeuate-deadc",
@@ -811,12 +811,14 @@
 
         function renderCarouselDOM() {
             const container = document.getElementById('carouselContainer');
-            if (messagesData.length === 0) {
+            const displayMessages = messagesData.slice(0, 30); // 🌟 關鍵修改：只取出最新的 30 則留言來顯示
+
+            if (displayMessages.length === 0) {
                 container.innerHTML = `<div class="carousel-card active" style="text-align:center"><div class="msg">目前尚無祝福，快掃描左方 QR Code 搶頭香吧！</div></div>`;
                 return;
             }
             let html = '';
-            messagesData.forEach((msg, idx) => {
+            displayMessages.forEach((msg, idx) => {
                 html += `
                     <div class="carousel-card" id="card-${idx}">
                         <div class="target">To: ${escapeHtml(msg.targetName)}</div>
@@ -830,8 +832,9 @@
 
         function startCarousel() {
             if(carouselInterval) clearInterval(carouselInterval);
-            if(messagesData.length === 0) return;
-            if(activeCardIndex >= messagesData.length) activeCardIndex = 0;
+            const displayCount = Math.min(messagesData.length, 30); // 🌟 確保輪播總數最大不超過 30
+            if(displayCount === 0) return;
+            if(activeCardIndex >= displayCount) activeCardIndex = 0;
             
             const updateCards = () => {
                 document.querySelectorAll('.carousel-card').forEach(el => {
@@ -852,9 +855,9 @@
             };
             updateCards();
 
-            if(messagesData.length > 1) {
+            if(displayCount > 1) {
                 carouselInterval = setInterval(() => {
-                    activeCardIndex = (activeCardIndex + 1) % messagesData.length;
+                    activeCardIndex = (activeCardIndex + 1) % displayCount;
                     updateCards();
                 }, 6000); 
             }
