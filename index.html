@@ -394,11 +394,11 @@
             <form id="wishForm">
                 <div class="form-group">
                     <label>您的姓名 / 稱謂</label>
-                    <input type="text" id="guestName" required placeholder="例如：李大仁 / 家長">
+                    <input type="text" id="guestName" required placeholder="例如：王小明 / 家長會長">
                 </div>
                 <div class="form-group">
                     <label>送給哪位畢業生 (或班級)</label>
-                    <input type="text" id="targetName" required placeholder="例如：六年五班 / 李小安">
+                    <input type="text" id="targetName" required placeholder="例如：六年甲班 / 李大華">
                 </div>
                 <div class="form-group">
                     <label>祝福內容</label>
@@ -487,7 +487,7 @@
             
             <!-- 登入區塊 -->
             <div id="loginSection">
-                <p>請輸入管理員密碼以進入設定</p>
+                <p>請輸入管理員密碼以進入設定 (預設: 1234)</p>
                 <div class="flex-row">
                     <input type="password" id="adminPassword" class="admin-input" placeholder="請輸入密碼">
                     <button class="btn-action" onclick="verifyLogin()">登入</button>
@@ -586,7 +586,7 @@
         handleRouting();
 
         // ================= 1. 系統與 Firebase 初始化 =================
-                   const myFirebaseConfig = {
+                      const myFirebaseConfig = {
                 apiKey: "AIzaSyCnHAgkXvben7eh2OMGtq13biiZa24EC7s",
   authDomain: "gradeuate-deadc.firebaseapp.com",
   projectId: "gradeuate-deadc",
@@ -811,7 +811,8 @@
 
         function renderCarouselDOM() {
             const container = document.getElementById('carouselContainer');
-            const displayMessages = messagesData.slice(0, 30); // 🌟 關鍵修改：只取出最新的 30 則留言來顯示
+            // 🌟 恢復為顯示全部留言
+            const displayMessages = messagesData; 
 
             if (displayMessages.length === 0) {
                 container.innerHTML = `<div class="carousel-card active" style="text-align:center"><div class="msg">目前尚無祝福，快掃描左方 QR Code 搶頭香吧！</div></div>`;
@@ -832,7 +833,8 @@
 
         function startCarousel() {
             if(carouselInterval) clearInterval(carouselInterval);
-            const displayCount = Math.min(messagesData.length, 30); // 🌟 確保輪播總數最大不超過 30
+            // 🌟 恢復為輪播總數等於所有留言數量
+            const displayCount = messagesData.length; 
             if(displayCount === 0) return;
             if(activeCardIndex >= displayCount) activeCardIndex = 0;
             
